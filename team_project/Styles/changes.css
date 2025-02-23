@@ -1,0 +1,53 @@
+/* General Page Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+    padding: 20px;
+    background-color: #f4f4f4;
+}
+
+/* Header Styles */
+h1 {
+    text-align: center;
+    color: #333;
+}
+
+/* Iteration Section */
+.iteration {
+    background: white;
+    padding: 15px;
+    margin: 20px 0;
+    border-left: 5px solid #007bff;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Team Member Contributions */
+.team-member {
+    background: #f9f9f9;
+    padding: 10px;
+    margin-top: 10px;
+    border-left: 3px solid #28a745;
+}
+
+.team-member h3 {
+    color: #007bff;
+    margin-bottom: 5px;
+}
+
+.team-member p {
+    margin: 5px 0;
+}
+
+/* Back Link */
+a {
+    display: block;
+    text-align: center;
+    margin-top: 20px;
+    color: #007bff;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+a:hover {
+    text-decoration: underline;
+}
