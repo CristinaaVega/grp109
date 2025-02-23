@@ -56,7 +56,7 @@
     }
     
     document.addEventListener("click", (event) => { //complete or delete a task
-        if (event.target.classList.contains("complete-btn")) {
+        if (event.target.classList.contains("complete-btn")) { //complete a task
             const taskItem = event.target.closest("li");
             taskItem.classList.add("completed");
             completedList.appendChild(taskItem);
@@ -64,7 +64,7 @@
             saveTasks();
         }
         
-        if (event.target.classList.contains("delete-btn")) {
+        if (event.target.classList.contains("delete-btn")) { //delete a task
             event.target.closest("li").remove();
             saveTasks();
         }
