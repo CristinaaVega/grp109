@@ -6,7 +6,20 @@ body {
     margin: 0;
     padding: 0;
 }
+#clipboard-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 60px; /* Adjust size if needed */
+    height: auto;
+    z-index: 1000; /* Keeps it on top */
+}
 
+#clipboard-icon {
+    width: 100%;
+    height: auto;
+    cursor: pointer;
+}
 #animated-bear-container {
     position: fixed;
     bottom: 10px;
