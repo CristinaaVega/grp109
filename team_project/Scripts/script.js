@@ -127,13 +127,17 @@ document.addEventListener("DOMContentLoaded", () => {
     renderCalendar();
 
     document.getElementById('prevBtn').addEventListener('click', (e) => {
+        secondsElapsed = 0;
         e.stopPropagation();
+        soundRewind.play();  // <- directly trigger sound
         prevSlide();
         resetTimer();
     });
-
+    
     document.getElementById('nextBtn').addEventListener('click', (e) => {
+        secondsElapsed = 0;
         e.stopPropagation();
+        soundAdvance.play();  // <- directly trigger sound
         nextSlide();
         resetTimer();
     });
