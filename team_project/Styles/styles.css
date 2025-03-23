@@ -15,6 +15,20 @@ body {
     margin: 0;
     padding: 0;
 }
+#clipboard-container {
+    position: fixed;
+    top: 20px;  /* Moves it to the top */
+    right: 20px; /* Adjust to the top-right corner */
+    width: 50px; /* Adjust size if needed */
+    height: auto;
+    z-index: 1000; /* Keeps it on top */
+}
+
+#clipboard-icon {
+    width: 100%;
+    height: auto;
+    cursor: pointer;
+}
 
 .carousel-container {
     position: fixed;
