@@ -1,4 +1,60 @@
 document.addEventListener("DOMContentLoaded", () => {
+    const carousel = document.getElementById("carousel");
+    const slides = document.querySelectorAll(".slide");
+    const timerDisplay = document.getElementById("timer");
+    const soundAdvance = document.getElementById("soundAdvance");
+    const soundRewind = document.getElementById("soundRewind");
+    const container = document.getElementById("carouselContainer");
+
+    let index = 0;
+    let secondsElapsed = 0;
+    let interval;
+
+    function showSlide(idx) {
+        carousel.style.transform = `translateX(-${idx * 100}%)`;
+    }
+
+    function resetTimer() {
+        secondsElapsed = 0;
+        clearInterval(interval);
+        interval = setInterval(() => {
+            secondsElapsed++;
+            timerDisplay.textContent = `${secondsElapsed}s`;
+            if (secondsElapsed >= 3) {
+                nextSlide(true);
+                resetTimer();
+            }
+        }, 1000);
+    }
+
+    function nextSlide(auto = false) {
+        index = (index + 1) % slides.length;
+        showSlide(index);
+        if (!auto) soundAdvance.play();
+    }
+
+    function prevSlide() {
+        index = (index - 1 + slides.length) % slides.length;
+        showSlide(index);
+        soundRewind.play();
+    }
+
+    container.addEventListener("click", (e) => {
+        const clickX = e.clientX;
+        const middle = window.innerWidth / 2;
+
+        if (clickX < middle) {
+            prevSlide();
+        } else {
+            nextSlide();
+        }
+
+        resetTimer();
+    });
+
+    showSlide(index);
+    resetTimer();
+
     const taskForm = document.getElementById("taskForm");
     const taskInput = document.getElementById("taskName");
     const taskTimeInput = document.getElementById("taskTime");
@@ -69,4 +125,16 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     renderCalendar();
+
+    document.getElementById('prevBtn').addEventListener('click', (e) => {
+        e.stopPropagation();
+        prevSlide();
+        resetTimer();
+    });
+
+    document.getElementById('nextBtn').addEventListener('click', (e) => {
+        e.stopPropagation();
+        nextSlide();
+        resetTimer();
+    });
 });
