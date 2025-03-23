@@ -40,15 +40,20 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     container.addEventListener("click", (e) => {
+        if (e.target.id === "prevBtn" || e.target.id === "nextBtn") {
+            // Ignore clicks on buttons; they're handled separately
+            return;
+        }
+    
         const clickX = e.clientX;
         const middle = window.innerWidth / 2;
-
+    
         if (clickX < middle) {
             prevSlide();
         } else {
             nextSlide();
         }
-
+    
         resetTimer();
     });
 
