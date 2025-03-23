@@ -2,8 +2,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const carousel = document.getElementById("carousel");
     const slides = document.querySelectorAll(".slide");
     const timerDisplay = document.getElementById("timer");
-    const soundAdvance = document.getElementById("soundAdvance");
-    const soundRewind = document.getElementById("soundRewind");
+    const soundAdvance = document.getElementById("Advance");
+    const soundRewind = document.getElementById("Rewind");
     const container = document.getElementById("carouselContainer");
 
     let index = 0;
