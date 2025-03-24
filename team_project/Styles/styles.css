@@ -276,4 +276,8 @@ body {
 .task.other {
     border-left: 6px solid #ff69b4; /* Pink (can be fun!) */
 }
-
+.presentation{
+    width:90%;
+    height:545px;
+    border:0;
+}
