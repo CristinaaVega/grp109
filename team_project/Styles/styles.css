@@ -264,3 +264,16 @@ body {
 .right-btn {
     right: 20px;
 }
+
+.task.work {
+    border-left: 6px solid #007bff; /* Blue */
+}
+
+.task.school {
+    border-left: 6px solid #28a745; /* Green */
+}
+
+.task.other {
+    border-left: 6px solid #ff69b4; /* Pink (can be fun!) */
+}
+
