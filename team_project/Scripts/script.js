@@ -90,7 +90,7 @@ taskForm.addEventListener("submit", (event) => {
     }
     // If category is "other", use the selected color
 
-    addTaskToCalendar(taskInput.value.trim(), taskTimeInput.value, taskColor);
+    addTaskToCalendar(taskInput.value.trim(), taskTimeInput.value, taskColor, category);
     saveTasks();
 
     taskInput.value = "";
@@ -100,21 +100,22 @@ taskForm.addEventListener("submit", (event) => {
 
 
     // Add Task to Calendar
-    function addTaskToCalendar(text, time, color) {
+    function addTaskToCalendar(text, time, color, category = "other") {
         let hour = parseInt(time.split(":")[0]);
         let targetSlot = document.querySelector(`.task-slot[data-hour='${hour}']`);
 
-        if (targetSlot) {
-            let taskDiv = document.createElement("div");
-            taskDiv.classList.add("task");
-            taskDiv.textContent = text;
-            taskDiv.style.backgroundColor = color;
-            targetSlot.appendChild(taskDiv);
+    if (targetSlot) {
+        let taskDiv = document.createElement("div");
+        taskDiv.classList.add("task", category); // Apply category class (work/school/other)
+        taskDiv.textContent = text;
+        taskDiv.style.backgroundColor = color;
+        targetSlot.appendChild(taskDiv);
 
-            tasks.push({ text, time, color });
-            saveTasks();
-        }
+        tasks.push({ text, time, color, category }); // Save category too!
+        saveTasks();
     }
+}
+
 
     // Save Tasks to Local Storage
     function saveTasks() {
@@ -139,7 +140,8 @@ taskForm.addEventListener("submit", (event) => {
         }
 
         // Re-add stored tasks
-        tasks.forEach(task => addTaskToCalendar(task.text, task.time, task.color));
+            tasks.forEach(task => addTaskToCalendar(task.text, task.time, task.color, task.category || "other"));
+
     }
 
     renderCalendar();
