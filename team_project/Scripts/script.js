@@ -5,6 +5,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const soundAdvance = document.getElementById("Advance");
     const soundRewind = document.getElementById("Rewind");
     const container = document.getElementById("carouselContainer");
+    const taskCategoryInput = document.getElementById("taskCategory");
 
     let index = 0;
     let secondsElapsed = 0;
@@ -74,17 +75,29 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     loadTasks();
 
-    // Task submission
-    taskForm.addEventListener("submit", (event) => {
-        event.preventDefault();
-        if (taskInput.value.trim() === "" || !taskTimeInput.value) return;
-        
-        addTaskToCalendar(taskInput.value.trim(), taskTimeInput.value, taskColorInput.value);
-        saveTasks();
-        
-        taskInput.value = "";
-        taskTimeInput.value = "";
-    });
+taskForm.addEventListener("submit", (event) => {
+    event.preventDefault();
+    if (taskInput.value.trim() === "" || !taskTimeInput.value) return;
+
+    const category = taskCategoryInput.value;
+    let taskColor = taskColorInput.value;
+
+    // Override color based on selected category
+    if (category === "work") {
+        taskColor = "#007bff"; // Blue
+    } else if (category === "school") {
+        taskColor = "#28a745"; // Green
+    }
+    // If category is "other", use the selected color
+
+    addTaskToCalendar(taskInput.value.trim(), taskTimeInput.value, taskColor);
+    saveTasks();
+
+    taskInput.value = "";
+    taskTimeInput.value = "";
+    taskColorInput.value = "#ff0000"; // reset color to default
+});
+
 
     // Add Task to Calendar
     function addTaskToCalendar(text, time, color) {
