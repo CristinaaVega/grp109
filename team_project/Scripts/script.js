@@ -118,10 +118,13 @@ document.addEventListener("DOMContentLoaded", () => {
         localStorage.setItem("tasks", JSON.stringify(tasks));
     }
 
-   function renderCalendar() {
+  function renderCalendar() {
     calendar.innerHTML = "";
 
+    calendar.classList.remove("weekly");
+
     if (currentView === "daily") {
+   
         for (let hour = 6; hour <= 22; hour++) {
             let formattedHour = hour > 12 ? hour - 12 + " PM" : hour + " AM";
             if (hour === 12) formattedHour = "12 PM";
@@ -137,13 +140,14 @@ document.addEventListener("DOMContentLoaded", () => {
             calendar.appendChild(taskSlot);
         }
 
-
         tasks.forEach(task =>
             addTaskToCalendar(task.text, task.time, task.color, task.category || "other")
         );
     }
 
     if (currentView === "weekly") {
+        calendar.classList.add("weekly"); 
+
         const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
         days.forEach(day => {
             const dayColumn = document.createElement("div");
@@ -166,34 +170,3 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 }
-
-
-    renderCalendar();
-
-    document.getElementById("dailyViewBtn").addEventListener("click", () => {
-        currentView = "daily";
-        renderCalendar();
-    });
-
-    document.getElementById("weeklyViewBtn").addEventListener("click", () => {
-        currentView = "weekly";
-        renderCalendar();
-    });
-
-    document.getElementById('prevBtn').addEventListener('click', (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        secondsElapsed = 0;
-        prevSlide();
-        resetTimer();
-    });
-    
-    document.getElementById('nextBtn').addEventListener('click', (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        secondsElapsed = 0;
-        nextSlide();
-        resetTimer();
-    });
-});
-
