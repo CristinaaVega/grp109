@@ -281,3 +281,69 @@ body {
     height:510px;
     border:0;
 }
+/* === View Toggle Buttons === */
+.view-toggle {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin: 15px 0;
+}
+
+.view-toggle .add-btn {
+    padding: 8px 20px;
+    font-size: 14px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.calendar.weekly {
+    display: flex;
+    gap: 10px;
+    min-width: 1000px;
+    padding-bottom: 10px;
+    overflow-x: auto;
+}
+
+.calendar-container.weekly-enabled {
+    overflow-x: auto;
+}
+
+.week-day-column {
+    display: inline-block;
+    vertical-align: top;
+    background: #ffffffd9;
+    border-radius: 10px;
+    margin: 5px;
+    padding: 10px;
+    width: 13%;
+    min-width: 120px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    flex-shrink: 0;
+}
+
+.week-day-column h3 {
+    text-align: center;
+    font-size: 16px;
+    margin-top: 0;
+    color: #333;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 5px;
+}
+
+.task-slot.weekly {
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    padding: 6px;
+    margin: 5px 0;
+    min-height: 40px;
+    font-size: 12px;
+    background-color: #f9f9f9;
+    text-align: center;
+    position: relative;
+    transition: background-color 0.3s ease;
+}
+
+.task-slot.weekly:hover {
+    background-color: #e8f0fe;
+}
+
