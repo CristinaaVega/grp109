@@ -272,14 +272,6 @@ body {
     cursor: pointer;
 }
 
-.calendar.weekly {
-    display: flex;
-    flex-direction: row;       
-    gap: 10px;
-    min-width: 1400px;        
-    padding: 15px;
-}
-
 .calendar-container {
     background: rgba(255, 255, 255, 0.85);
     padding: 10px;
@@ -323,8 +315,10 @@ body {
 }
 .calendar.weekly {
     display: flex;
+    flex-direction: row;
     gap: 10px;
     min-width: 1400px;
+    padding: 15px;
 }
 .calendar-container::-webkit-scrollbar {
     height: 8px;
