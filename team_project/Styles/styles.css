@@ -281,7 +281,7 @@ body {
     height:510px;
     border:0;
 }
-/* === View Toggle Buttons === */
+
 .view-toggle {
     display: flex;
     justify-content: center;
@@ -304,8 +304,15 @@ body {
     overflow-x: auto;
 }
 
-.calendar-container.weekly-enabled {
-    overflow-x: auto;
+.calendar-container {
+    background: rgba(255, 255, 255, 0.85);
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 10px;
+    overflow-x: auto; /* Enable horizontal scrolling */
+    width: 100%;
+
 }
 
 .week-day-column {
@@ -321,13 +328,17 @@ body {
     flex-shrink: 0;
 }
 
-.week-day-column h3 {
-    text-align: center;
-    font-size: 16px;
-    margin-top: 0;
-    color: #333;
-    border-bottom: 1px solid #ccc;
-    padding-bottom: 5px;
+.week-day-column {
+    display: flex;
+    flex-direction: column;
+    background: #ffffffd9;
+    border-radius: 10px;
+    margin: 5px;
+    padding: 10px;
+    width: 180px;
+    min-width: 180px;
+    flex-shrink: 0;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 .task-slot.weekly {
@@ -346,4 +357,19 @@ body {
 .task-slot.weekly:hover {
     background-color: #e8f0fe;
 }
+.calendar.weekly {
+    display: flex;
+    gap: 10px;
+    min-width: 1400px; /* Enough to fit all 7 days */
+}
+.calendar-container::-webkit-scrollbar {
+    height: 8px;
+}
+
+.calendar-container::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 4px;
+}
+
+
 
