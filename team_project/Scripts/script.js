@@ -157,4 +157,33 @@ document.addEventListener("DOMContentLoaded", () => {
         nextSlide();
         resetTimer();
     });
+
+    document.getElementById('weeklyViewBtn').addEventListener('click', () => {
+        renderWeeklyCalendar();
+    });
+
+    function renderWeeklyCalendar() {
+        calendar.innerHTML = "";
+        const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+
+        days.forEach(day => {
+            const dayColumn = document.createElement("div");
+            dayColumn.classList.add("day-column");
+
+            const dayLabel = document.createElement("div");
+            dayLabel.classList.add("day-label");
+            dayLabel.textContent = day;
+            dayColumn.appendChild(dayLabel);
+
+            for (let hour = 6; hour <= 22; hour++) {
+                let taskSlot = document.createElement("div");
+                taskSlot.classList.add("task-slot");
+                taskSlot.setAttribute("data-hour", hour);
+                taskSlot.setAttribute("data-day", day);
+                dayColumn.appendChild(taskSlot);
+            }
+
+            calendar.appendChild(dayColumn);
+        });
+    }
 });
