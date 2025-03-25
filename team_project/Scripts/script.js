@@ -118,53 +118,55 @@ document.addEventListener("DOMContentLoaded", () => {
         localStorage.setItem("tasks", JSON.stringify(tasks));
     }
 
-    function renderCalendar() {
-        calendar.innerHTML = "";
+   function renderCalendar() {
+    calendar.innerHTML = "";
 
-        if (currentView === "daily") {
+    if (currentView === "daily") {
+        for (let hour = 6; hour <= 22; hour++) {
+            let formattedHour = hour > 12 ? hour - 12 + " PM" : hour + " AM";
+            if (hour === 12) formattedHour = "12 PM";
+
+            let hourLabel = document.createElement("div");
+            hourLabel.classList.add("hour");
+            hourLabel.textContent = formattedHour;
+            calendar.appendChild(hourLabel);
+
+            let taskSlot = document.createElement("div");
+            taskSlot.classList.add("task-slot");
+            taskSlot.setAttribute("data-hour", hour);
+            calendar.appendChild(taskSlot);
+        }
+
+
+        tasks.forEach(task =>
+            addTaskToCalendar(task.text, task.time, task.color, task.category || "other")
+        );
+    }
+
+    if (currentView === "weekly") {
+        const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+        days.forEach(day => {
+            const dayColumn = document.createElement("div");
+            dayColumn.classList.add("week-day-column");
+
+            const dayHeader = document.createElement("h3");
+            dayHeader.textContent = day;
+            dayColumn.appendChild(dayHeader);
+
             for (let hour = 6; hour <= 22; hour++) {
-                let formattedHour = hour > 12 ? hour - 12 + " PM" : hour + " AM";
-                if (hour === 12) formattedHour = "12 PM";
-
-                let hourLabel = document.createElement("div");
-                hourLabel.classList.add("hour");
-                hourLabel.textContent = formattedHour;
-                calendar.appendChild(hourLabel);
-
-                let taskSlot = document.createElement("div");
-                taskSlot.classList.add("task-slot");
-                taskSlot.setAttribute("data-hour", hour);
-                calendar.appendChild(taskSlot);
+                const timeBlock = document.createElement("div");
+                timeBlock.classList.add("task-slot", "weekly");
+                timeBlock.setAttribute("data-day", day);
+                timeBlock.setAttribute("data-hour", hour);
+                timeBlock.innerHTML = `${hour}:00`;
+                dayColumn.appendChild(timeBlock);
             }
 
-            tasks.forEach(task =>
-                addTaskToCalendar(task.text, task.time, task.color, task.category || "other")
-            );
-        }
-
-        if (currentView === "weekly") {
-            const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
-            days.forEach(day => {
-                const dayColumn = document.createElement("div");
-                dayColumn.classList.add("week-day-column");
-
-                const dayHeader = document.createElement("h3");
-                dayHeader.textContent = day;
-                dayColumn.appendChild(dayHeader);
-
-                for (let hour = 6; hour <= 22; hour++) {
-                    const timeBlock = document.createElement("div");
-                    timeBlock.classList.add("task-slot", "weekly");
-                    timeBlock.setAttribute("data-day", day);
-                    timeBlock.setAttribute("data-hour", hour);
-                    timeBlock.innerHTML = `${hour}:00`;
-                    dayColumn.appendChild(timeBlock);
-                }
-
-                calendar.appendChild(dayColumn);
-            });
-        }
+            calendar.appendChild(dayColumn);
+        });
     }
+}
+
 
     renderCalendar();
 
