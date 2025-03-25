@@ -161,6 +161,9 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById('weeklyViewBtn').addEventListener('click', () => {
         renderWeeklyCalendar();
     });
+    document.getElementById('dailyViewBtn').addEventListener('click', () => {
+        renderCalendar();
+    });
 
     function renderWeeklyCalendar() {
         calendar.innerHTML = "";
