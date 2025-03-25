@@ -15,20 +15,6 @@ body {
     margin: 0;
     padding: 0;
 }
-#clipboard-container {
-    position: fixed;
-    top: 20px;  /* Moves it to the top */
-    right: 20px; /* Adjust to the top-right corner */
-    width: 50px; /* Adjust size if needed */
-    height: auto;
-    z-index: 1000; /* Keeps it on top */
-}
-
-#clipboard-icon {
-    width: 100%;
-    height: auto;
-    cursor: pointer;
-}
 
 .carousel-container {
     position: fixed;
@@ -140,16 +126,6 @@ body {
 
 .add-btn:hover {
     background-color: #218838;
-}
-
-.calendar-container {
-    background: rgba(255, 255, 255, 0.85);
-    padding: 10px;
-    border-radius: 10px;
-    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
-    margin-top: 10px;
-    overflow: hidden;
-    width: 100%;
 }
 
 .calendar {
@@ -316,29 +292,16 @@ body {
 }
 
 .week-day-column {
-    display: inline-block;
-    vertical-align: top;
-    background: #ffffffd9;
-    border-radius: 10px;
-    margin: 5px;
-    padding: 10px;
-    width: 13%;
-    min-width: 120px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    flex-shrink: 0;
-}
-
-.week-day-column {
     display: flex;
     flex-direction: column;
+    align-items: center;
+    width: 160px;
+    min-width: 160px;
     background: #ffffffd9;
     border-radius: 10px;
-    margin: 5px;
     padding: 10px;
-    width: 180px;
-    min-width: 180px;
-    flex-shrink: 0;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    flex-shrink: 0; 
 }
 
 .task-slot.weekly {
@@ -360,7 +323,7 @@ body {
 .calendar.weekly {
     display: flex;
     gap: 10px;
-    min-width: 1400px; /* Enough to fit all 7 days */
+    min-width: 1400px;
 }
 .calendar-container::-webkit-scrollbar {
     height: 8px;
@@ -370,6 +333,14 @@ body {
     background: #ccc;
     border-radius: 4px;
 }
+.week-day-column h3 {
+    font-size: 16px;
+    margin: 0 0 5px 0;
+    text-align: center;
+    border-bottom: 1px solid #ccc;
+    width: 100%;
+}
+
 
 
 
