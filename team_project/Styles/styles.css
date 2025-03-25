@@ -15,13 +15,14 @@ body {
     margin: 0;
     padding: 0;
 }
+
 #clipboard-container {
     position: fixed;
-    top: 20px;  /* Moves it to the top */
-    right: 20px; /* Adjust to the top-right corner */
-    width: 50px; /* Adjust size if needed */
+    top: 20px;
+    right: 20px;
+    width: 50px;
     height: auto;
-    z-index: 1000; /* Keeps it on top */
+    z-index: 1000;
 }
 
 #clipboard-icon {
@@ -40,22 +41,22 @@ body {
     z-index: -1;
     pointer-events: none;
 }
-  
-  .carousel {
+
+.carousel {
     display: flex;
     width: 100%;
     height: 100%;
     transition: transform 0.5s ease-in-out;
-  }
-  
-  .slide {
+}
+
+.slide {
     min-width: 100%;
     height: 100vh;
     background-size: cover;
     background-position: center;
-  }
-  
-  #timer {
+}
+
+#timer {
     position: absolute;
     top: 10px;
     right: 20px;
@@ -64,7 +65,7 @@ body {
     padding: 5px 10px;
     border-radius: 5px;
     font-size: 1.2rem;
-  }
+}
 
 #animated-bear-container {
     position: fixed;
@@ -274,78 +275,11 @@ body {
 }
 
 .task.other {
-    border-left: 6px solid #ff69b4; /* Pink (can be fun!) */
-}
-.presentation{
-    width:90%;
-    height:510px;
-    border:0;
-}
-/* === View Toggle Buttons === */
-.view-toggle {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    margin: 15px 0;
+    border-left: 6px solid #ff69b4; /* Pink */
 }
 
-.view-toggle .add-btn {
-    padding: 8px 20px;
-    font-size: 14px;
-    border-radius: 6px;
-    cursor: pointer;
+.presentation {
+    width: 90%;
+    height: 510px;
+    border: 0;
 }
-
-.calendar.weekly {
-    display: flex;
-    gap: 10px;
-    min-width: 1000px;
-    padding-bottom: 10px;
-    overflow-x: auto;
-}
-
-.calendar-container.weekly-enabled {
-    overflow-x: auto;
-}
-
-.week-day-column {
-    display: inline-block;
-    vertical-align: top;
-    background: #ffffffd9;
-    border-radius: 10px;
-    margin: 5px;
-    padding: 10px;
-    width: 13%;
-    min-width: 120px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    flex-shrink: 0;
-}
-
-.week-day-column h3 {
-    text-align: center;
-    font-size: 16px;
-    margin-top: 0;
-    color: #333;
-    border-bottom: 1px solid #ccc;
-    padding-bottom: 5px;
-}
-
-.task-slot.weekly {
-    border: 1px solid #ddd;
-    border-radius: 6px;
-    padding: 6px;
-    margin: 5px 0;
-    min-height: 40px;
-    font-size: 12px;
-    background-color: #f9f9f9;
-    text-align: center;
-    position: relative;
-    transition: background-color 0.3s ease;
-}
-
-.task-slot.weekly:hover {
-    background-color: #e8f0fe;
-}
-
-
-
