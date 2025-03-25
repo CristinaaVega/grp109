@@ -6,6 +6,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const soundRewind = document.getElementById("Rewind");
     const container = document.getElementById("carouselContainer");
     const taskCategoryInput = document.getElementById("taskCategory");
+    const dailyCalendar = document.getElementById("dailyCalendar");
+    const weeklyCalendar = document.getElementById("weeklyCalendar");
 
     let index = 0;
     let secondsElapsed = 0;
@@ -118,7 +120,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function renderCalendar() {
-        calendar.innerHTML = "";
+        dailyCalendar.innerHTML = "";
 
         for (let hour = 6; hour <= 22; hour++) {
             let formattedHour = hour > 12 ? hour - 12 + " PM" : hour + " AM";
@@ -127,12 +129,12 @@ document.addEventListener("DOMContentLoaded", () => {
             let hourLabel = document.createElement("div");
             hourLabel.classList.add("hour");
             hourLabel.textContent = formattedHour;
-            calendar.appendChild(hourLabel);
+            dailyCalendar.appendChild(hourLabel);
 
             let taskSlot = document.createElement("div");
             taskSlot.classList.add("task-slot");
             taskSlot.setAttribute("data-hour", hour);
-            calendar.appendChild(taskSlot);
+            dailyCalendar.appendChild(taskSlot);
         }
 
         tasks.forEach(task =>
@@ -158,15 +160,22 @@ document.addEventListener("DOMContentLoaded", () => {
         resetTimer();
     });
 
+    const dailyContainer = document.getElementById("dailyCalendarContainer");
+    const weeklyContainer = document.getElementById("weeklyCalendarContainer");
+
     document.getElementById('weeklyViewBtn').addEventListener('click', () => {
+        dailyContainer.style.display = "none";
+        weeklyContainer.style.display = "block";
         renderWeeklyCalendar();
     });
     document.getElementById('dailyViewBtn').addEventListener('click', () => {
+        dailyContainer.style.display = "block";
+        weeklyContainer.style.display = "none";
         renderCalendar();
     });
 
     function renderWeeklyCalendar() {
-        calendar.innerHTML = "";
+        weeklyCalendar.innerHTML = "";
         const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
         days.forEach(day => {
@@ -186,7 +195,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 dayColumn.appendChild(taskSlot);
             }
 
-            calendar.appendChild(dayColumn);
+            weeklyCalendar.appendChild(dayColumn);
         });
     }
 });
