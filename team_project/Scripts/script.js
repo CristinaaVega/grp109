@@ -7,6 +7,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const container = document.getElementById("carouselContainer");
     const taskCategoryInput = document.getElementById("taskCategory");
 
+    let currentView = "daily"; 
     let index = 0;
     let secondsElapsed = 0;
     let interval;
@@ -42,7 +43,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     container.addEventListener("click", (e) => {
         if (e.target.id === "prevBtn" || e.target.id === "nextBtn") {
-            // Ignore clicks on buttons; they're handled separately
             return;
         }
     
@@ -69,82 +69,114 @@ document.addEventListener("DOMContentLoaded", () => {
 
     let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
 
-    // Load tasks on page load
     function loadTasks() {
-        tasks.forEach(task => addTaskToCalendar(task.text, task.time, task.color));
+        tasks.forEach(task =>
+            addTaskToCalendar(task.text, task.time, task.color, task.category || "other")
+        );
     }
+
     loadTasks();
 
-taskForm.addEventListener("submit", (event) => {
-    event.preventDefault();
-    if (taskInput.value.trim() === "" || !taskTimeInput.value) return;
+    taskForm.addEventListener("submit", (event) => {
+        event.preventDefault();
+        if (taskInput.value.trim() === "" || !taskTimeInput.value) return;
 
-    const category = taskCategoryInput.value;
-    let taskColor = taskColorInput.value;
+        const category = taskCategoryInput.value;
+        let taskColor = taskColorInput.value;
 
-    // Override color based on selected category
-    if (category === "work") {
-        taskColor = "#007bff"; // Blue
-    } else if (category === "school") {
-        taskColor = "#28a745"; // Green
-    }
-    // If category is "other", use the selected color
+        if (category === "work") {
+            taskColor = "#007bff";
+        } else if (category === "school") {
+            taskColor = "#28a745";
+        }
 
-    addTaskToCalendar(taskInput.value.trim(), taskTimeInput.value, taskColor, category);
-    saveTasks();
+        addTaskToCalendar(taskInput.value.trim(), taskTimeInput.value, taskColor, category);
+        saveTasks();
 
-    taskInput.value = "";
-    taskTimeInput.value = "";
-    taskColorInput.value = "#ff0000"; // reset color to default
-});
+        taskInput.value = "";
+        taskTimeInput.value = "";
+        taskColorInput.value = "#ff0000";
+    });
 
-
-    // Add Task to Calendar
     function addTaskToCalendar(text, time, color, category = "other") {
         let hour = parseInt(time.split(":")[0]);
         let targetSlot = document.querySelector(`.task-slot[data-hour='${hour}']`);
 
-    if (targetSlot) {
-        let taskDiv = document.createElement("div");
-        taskDiv.classList.add("task", category); // Apply category class (work/school/other)
-        taskDiv.textContent = text;
-        taskDiv.style.backgroundColor = color;
-        targetSlot.appendChild(taskDiv);
+        if (targetSlot) {
+            let taskDiv = document.createElement("div");
+            taskDiv.classList.add("task", category);
+            taskDiv.textContent = text;
+            taskDiv.style.backgroundColor = color;
+            targetSlot.appendChild(taskDiv);
 
-        tasks.push({ text, time, color, category }); // Save category too!
-        saveTasks();
+            tasks.push({ text, time, color, category });
+            saveTasks();
+        }
     }
-}
 
-
-    // Save Tasks to Local Storage
     function saveTasks() {
         localStorage.setItem("tasks", JSON.stringify(tasks));
     }
 
-    // Render Calendar
     function renderCalendar() {
         calendar.innerHTML = "";
-        for (let hour = 6; hour <= 22; hour++) {
-            let formattedHour = hour > 12 ? hour - 12 + " PM" : hour + " AM";
-            if (hour === 12) formattedHour = "12 PM";
-            let hourLabel = document.createElement("div");
-            hourLabel.classList.add("hour");
-            hourLabel.textContent = formattedHour;
-            calendar.appendChild(hourLabel);
 
-            let taskSlot = document.createElement("div");
-            taskSlot.classList.add("task-slot");
-            taskSlot.setAttribute("data-hour", hour);
-            calendar.appendChild(taskSlot);
+        if (currentView === "daily") {
+            for (let hour = 6; hour <= 22; hour++) {
+                let formattedHour = hour > 12 ? hour - 12 + " PM" : hour + " AM";
+                if (hour === 12) formattedHour = "12 PM";
+
+                let hourLabel = document.createElement("div");
+                hourLabel.classList.add("hour");
+                hourLabel.textContent = formattedHour;
+                calendar.appendChild(hourLabel);
+
+                let taskSlot = document.createElement("div");
+                taskSlot.classList.add("task-slot");
+                taskSlot.setAttribute("data-hour", hour);
+                calendar.appendChild(taskSlot);
+            }
+
+            tasks.forEach(task =>
+                addTaskToCalendar(task.text, task.time, task.color, task.category || "other")
+            );
         }
 
-        // Re-add stored tasks
-            tasks.forEach(task => addTaskToCalendar(task.text, task.time, task.color, task.category || "other"));
+        if (currentView === "weekly") {
+            const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+            days.forEach(day => {
+                const dayColumn = document.createElement("div");
+                dayColumn.classList.add("week-day-column");
 
+                const dayHeader = document.createElement("h3");
+                dayHeader.textContent = day;
+                dayColumn.appendChild(dayHeader);
+
+                for (let hour = 6; hour <= 22; hour++) {
+                    const timeBlock = document.createElement("div");
+                    timeBlock.classList.add("task-slot", "weekly");
+                    timeBlock.setAttribute("data-day", day);
+                    timeBlock.setAttribute("data-hour", hour);
+                    timeBlock.innerHTML = `${hour}:00`;
+                    dayColumn.appendChild(timeBlock);
+                }
+
+                calendar.appendChild(dayColumn);
+            });
+        }
     }
 
     renderCalendar();
+
+    document.getElementById("dailyViewBtn").addEventListener("click", () => {
+        currentView = "daily";
+        renderCalendar();
+    });
+
+    document.getElementById("weeklyViewBtn").addEventListener("click", () => {
+        currentView = "weekly";
+        renderCalendar();
+    });
 
     document.getElementById('prevBtn').addEventListener('click', (e) => {
         e.preventDefault();
@@ -162,3 +194,4 @@ taskForm.addEventListener("submit", (event) => {
         resetTimer();
     });
 });
+
